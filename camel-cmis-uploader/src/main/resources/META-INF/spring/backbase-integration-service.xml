@@ -16,7 +16,7 @@
 
         <route id="com.backbase.portal.integration.service.sample.cmisimporter">
             <from uri="file:{{training.services.cmis.import.dir}}?recursive=true&amp;autoCreate=true&amp;moveFailed=.error"/>
-            <enrich uri="mimeTypeDetector" strategyRef="mimeTypeDetector"/>
+            <enrich uri="mimeTypeDetector" strategyRef="mimeTypeAggregator"/>
             <to uri="cmisUploader"/>
         </route>
 

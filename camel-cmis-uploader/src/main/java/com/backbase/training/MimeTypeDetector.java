@@ -15,20 +15,18 @@ import java.io.File;
  * Detects files mime type using Apache Tica library.
  */
 @Service
-public class MimeTypeDetector implements AggregationStrategy {
+public class MimeTypeDetector {
 
     private static final Logger logger = LoggerFactory.getLogger(MimeTypeDetector.class);
 
+//    You can mark a method in your bean with the @Handler annotation to indicate that this method should be used for
+//    Bean Binding.
+//    This has an advantage as you need not specify a method name in the Camel route,
+//    and therefore do not run into problems after renaming the method in an IDE that can't find all its references.
     @Handler
     public String detect(GenericFile<File> body) throws Exception {
         String mimeType = new Tika().detect(body.getFile());
         logger.debug("Mime Type for file: '" + body.getFileName() + "' resolved to :" + mimeType);
         return mimeType;
-    }
-
-    @Override
-    public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
-        oldExchange.getIn().setHeader("mimeType", newExchange.getIn().getBody(String.class));
-        return oldExchange;
     }
 }

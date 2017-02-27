@@ -74,6 +74,10 @@ public class CmisUploader {
         }
     }
 
+//    You can mark a method in your bean with the @Handler annotation to indicate that this method should be used for
+//    Bean Binding.
+//    This has an advantage as you need not specify a method name in the Camel route, and therefore do not run into
+//    problems after renaming the method in an IDE that can't find all its references.
     @Handler
     public void uploadFlat(GenericFile<File> body, @Header("mimeType") String mimeType) {
         logger.debug("Uploading file: " + body.getFileName());
